@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamental Plus 3 - Class 5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+        
+        body { font-family: 'Nunito', sans-serif; background-color: #f8fafc; color: #334155; }
+        
+        /* Tab Navigation */
+        .tab-btn { transition: all 0.3s ease; }
+        .tab-btn.active { background-color: #4f46e5; color: white; border-bottom: 4px solid #312e81; transform: translateY(-2px); }
+        .tab-content { display: none; animation: fadeIn 0.4s; }
+        .tab-content.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Custom Inputs & Elements */
+        .quiz-input { border: 2px solid #cbd5e1; transition: border-color 0.3s; }
+        .quiz-input:focus { outline: none; border-color: #4f46e5; }
+        .correct { border-color: #22c55e !important; background-color: #f0fdf4 !important; color: #15803d; }
+        .incorrect { border-color: #ef4444 !important; background-color: #fef2f2 !important; color: #b91c1c; }
+        
+        .skill-pill { cursor: pointer; transition: all 0.2s; user-select: none; }
+        .skill-pill:hover { transform: scale(1.05); }
+        .bucket-zone { min-height: 140px; transition: all 0.3s; }
+        .bucket-zone:hover { background-color: #f1f5f9; }
+
+        /* Game Elements */
+        .hire-btn:hover { background-color: #22c55e; color: white; border-color: #166534; }
+        .fire-btn:hover { background-color: #ef4444; color: white; border-color: #991b1b; }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <header class="relative bg-gradient-to-br from-indigo-900 via-blue-800 to-indigo-700 text-white shadow-2xl overflow-hidden">
+        <div class="relative max-w-6xl mx-auto px-4 py-10">
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-6">
+                <div class="text-center lg:text-left">
+                    <div class="inline-flex items-center bg-white/10 px-3 py-1 rounded-full text-sm font-bold mb-4 border border-white/20 backdrop-blur-sm">
+                        <i class="fas fa-university mr-2 text-yellow-300"></i> Colombo Americano Cali
+                    </div>
+                    <h1 class="text-4xl font-extrabold mb-3">Fundamental Plus 3</h1>
+                    <h2 class="text-2xl text-blue-100 font-semibold flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                        <span class="bg-indigo-800/80 px-3 py-1 rounded-lg border border-indigo-400/30 text-lg">Unit 7</span> 
+                        <span>Class 5: Employability & Interviews 👔</span>
+                    </h2>
+                </div>
+                <div class="w-full lg:w-auto bg-white/10 p-5 rounded-2xl backdrop-blur-md border border-white/20 shadow-xl max-w-lg">
+                    <h3 class="font-bold text-yellow-300 mb-2"><i class="fas fa-bullseye mr-2"></i>Communicative Objectives:</h3>
+                    <ul class="text-sm space-y-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle mt-1 mr-3 text-green-400"></i><span><b>Demonstrate mastery</b> of the Simple Past vs. Present Perfect.</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle mt-1 mr-3 text-green-400"></i><span><b>Categorize</b> employability skills and identify them in listening.</span></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle mt-1 mr-3 text-green-400"></i><span><b>Draft and practice</b> answers to common job interview questions.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 mt-8">
+        <!-- Navigation Tabs -->
+        <div class="flex flex-wrap gap-2 mb-8 bg-white p-2 rounded-2xl shadow-sm border border-slate-200 justify-center">
+            <button onclick="openTab('grammar')" id="btn-grammar" class="tab-btn active px-4 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-indigo-50">1. Grammar Mastery ⚙️</button>
+            <button onclick="openTab('vocab')" id="btn-vocab" class="tab-btn px-4 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-indigo-50">2. Vocabulary 🧠</button>
+            <button onclick="openTab('listening')" id="btn-listening" class="tab-btn px-4 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-indigo-50">3. Listening 🎧</button>
+            <button onclick="openTab('prep')" id="btn-prep" class="tab-btn px-4 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-indigo-50">4. Interview Prep 🎮</button>
+            <button onclick="openTab('writing')" id="btn-writing" class="tab-btn px-4 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-indigo-50">5. Write & Speak ✍️</button>
+        </div>
+
+        <!-- TAB 1: GRAMMAR MASTERY -->
+        <section id="grammar" class="tab-content active">
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <h2 class="text-3xl font-bold text-indigo-700 mb-4 text-center">Ultimate Tense Review ⚔️</h2>
+                <p class="text-lg text-slate-600 mb-8 text-center">Before we move forward, let's make sure we are experts at choosing between the <b>Simple Past</b> and the <b>Present Perfect</b>.</p>
+
+                <!-- Visual Recap -->
+                <div class="grid md:grid-cols-2 gap-6 mb-10">
+                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-200">
+                        <h3 class="font-black text-blue-800 text-xl mb-3 border-b border-blue-200 pb-2"><i class="fas fa-calendar-check mr-2"></i>Simple Past</h3>
+                        <p class="font-bold text-sm text-blue-600 uppercase mb-2">Finished Time</p>
+                        <p class="text-slate-700 text-sm mb-3">The action is completely finished, and we know exactly <i>when</i> it happened.</p>
+                        <div class="bg-white p-3 rounded-lg text-sm border border-blue-100 font-mono text-slate-600 mb-3">
+                            <b>Keywords:</b> yesterday, last week, in 2020, ago, when I was...
+                        </div>
+                        <p class="italic text-blue-900 bg-blue-100/50 p-2 rounded border-l-4 border-blue-400">"I <b>started</b> high school <b>in 2021</b>."</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-2xl border border-green-200">
+                        <h3 class="font-black text-green-800 text-xl mb-3 border-b border-green-200 pb-2"><i class="fas fa-infinity mr-2"></i>Present Perfect</h3>
+                        <p class="font-bold text-sm text-green-600 uppercase mb-2">Unfinished Time / Experience</p>
+                        <p class="text-slate-700 text-sm mb-3">Life experiences (time doesn't matter) OR actions with a result right now.</p>
+                        <div class="bg-white p-3 rounded-lg text-sm border border-green-100 font-mono text-slate-600 mb-3">
+                            <b>Keywords:</b> already, just, yet, ever, never, recently, so far
+                        </div>
+                        <p class="italic text-green-900 bg-green-100/50 p-2 rounded border-l-4 border-green-400">"I <b>have</b> <i>already</i> <b>finished</b> my homework."</p>
+                    </div>
+                </div>
+
+                <!-- The Grammar Gauntlet Game -->
+                <div class="bg-gradient-to-br from-slate-800 to-indigo-900 p-8 rounded-2xl shadow-xl text-white mb-10 relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 opacity-10"><i class="fas fa-shield-alt text-9xl"></i></div>
+                    
+                    <div class="text-center mb-6 relative z-10">
+                        <h3 class="text-3xl font-extrabold text-yellow-400 mb-2">The Grammar Gauntlet</h3>
+                        <p class="text-indigo-200">15 Questions. Choose the correct tense. Let's see your mastery!</p>
+                    </div>
+
+                    <div id="gauntlet-container" class="bg-white text-slate-800 p-6 rounded-xl max-w-3xl mx-auto shadow-inner text-center relative z-10">
+                        <div class="flex justify-between items-center mb-6 text-sm font-bold text-slate-500 bg-slate-100 p-3 rounded-lg">
+                            <span>Question: <span id="gauntlet-round" class="text-indigo-600 text-lg">1 / 15</span></span>
+                            <span>Score: <span id="gauntlet-score" class="text-green-500 text-lg">0</span></span>
+                        </div>
+                        <h4 id="gauntlet-question" class="text-xl md:text-2xl font-bold mb-8 text-indigo-900">Loading...</h4>
+                        <div class="grid md:grid-cols-2 gap-4" id="gauntlet-options">
+                            <!-- Options injected by JS -->
+                        </div>
+                    </div>
+                    
+                    <div id="gauntlet-end" class="hidden text-center mt-6 relative z-10">
+                        <h3 class="text-4xl font-bold text-yellow-300 mb-2">Gauntlet Complete!</h3>
+                        <p class="text-xl mb-6">Final Score: <span id="gauntlet-final-score" class="font-bold text-3xl"></span>/15</p>
+                        <button onclick="initGauntlet()" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">Play Again</button>
+                    </div>
+                </div>
+
+                <!-- Fix the Mistakes -->
+                <div class="bg-orange-50 p-8 rounded-2xl border border-orange-200">
+                    <h3 class="text-2xl font-bold text-orange-800 mb-4"><i class="fas fa-wrench mr-2"></i>Fix the Mistakes</h3>
+                    <p class="mb-6 text-slate-700">These sentences have tense errors. Rewrite them correctly in your notebook. Think about the time markers!</p>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200"><span class="font-bold text-orange-600 mr-2">1.</span> I have went to the cinema yesterday.</div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200"><span class="font-bold text-orange-600 mr-2">2.</span> Did you ever eat Thai food?</div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200"><span class="font-bold text-orange-600 mr-2">3.</span> She didn't finish her project yet.</div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200"><span class="font-bold text-orange-600 mr-2">4.</span> We have bought a new car in 2022.</div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200"><span class="font-bold text-orange-600 mr-2">5.</span> Look! I just spilled coffee on my shirt!</div>
+                    </div>
+
+                    <div id="correction-answers" class="hidden bg-white p-6 rounded-xl border border-green-300 text-green-800 space-y-2 text-sm">
+                        <p><b>1.</b> I <b>went</b> to the cinema yesterday. <i>(Simple Past for 'yesterday')</i></p>
+                        <p><b>2.</b> <b>Have</b> you ever <b>eaten</b> Thai food? <i>(Present Perfect for 'ever' / life experience)</i></p>
+                        <p><b>3.</b> She <b>hasn't finished</b> her project yet. <i>(Present Perfect for 'yet')</i></p>
+                        <p><b>4.</b> We <b>bought</b> a new car in 2022. <i>(Simple Past for specific finished year)</i></p>
+                        <p><b>5.</b> Look! I <b>have</b> just <b>spilled</b> coffee on my shirt! <i>(Present Perfect for 'just')</i></p>
+                    </div>
+                    <div class="text-center mt-4"><button onclick="toggleCorrections()" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-lg transition">Show Teacher's Answers</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: VOCABULARY -->
+        <section id="vocab" class="tab-content">
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-indigo-700 mb-2">Employability Skills 🌟</h2>
+                    <p class="text-lg text-slate-600">What skills do you need to get a great job in the 21st century?</p>
+                </div>
+
+                <!-- Part A: Definitions -->
+                <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100 mb-10 shadow-sm">
+                    <h3 class="text-xl font-bold text-indigo-800 mb-4"><i class="fas fa-list-ul mr-2"></i>Part A: Definitions</h3>
+                    <p class="text-slate-700 mb-6 text-sm">Complete the sentences with words from the box.</p>
+                    
+                    <div class="flex flex-wrap gap-2 justify-center mb-8 bg-white p-4 rounded-xl border border-slate-200 shadow-inner text-indigo-700 font-bold">
+                        <span>creative</span> • <span>curious</span> • <span>flexible</span> • <span>honest</span> • <span>independent</span> • <span>motivated</span> • <span>organized</span>
+                    </div>
+
+                    <div class="space-y-4 max-w-4xl mx-auto text-slate-700">
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center gap-3">
+                            <span class="font-bold text-indigo-400">1.</span> <p class="flex-grow">If you can make changes when necessary, you are...</p>
+                            <input type="text" id="v1" class="quiz-input rounded px-3 py-1 font-bold text-indigo-700 w-full md:w-32 text-center" placeholder="Word?">
+                        </div>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center gap-3">
+                            <span class="font-bold text-indigo-400">2.</span> <p class="flex-grow">Paul always plans and does things in a logical order. He is...</p>
+                            <input type="text" id="v2" class="quiz-input rounded px-3 py-1 font-bold text-indigo-700 w-full md:w-32 text-center" placeholder="Word?">
+                        </div>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center gap-3">
+                            <span class="font-bold text-indigo-400">3.</span> <p class="flex-grow">Sandra enjoys working alone. She’s very...</p>
+                            <input type="text" id="v3" class="quiz-input rounded px-3 py-1 font-bold text-indigo-700 w-full md:w-32 text-center" placeholder="Word?">
+                        </div>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center gap-3">
+                            <span class="font-bold text-indigo-400">4.</span> <p class="flex-grow">If you always tell the truth, you are...</p>
+                            <input type="text" id="v4" class="quiz-input rounded px-3 py-1 font-bold text-indigo-700 w-full md:w-32 text-center" placeholder="Word?">
+                        </div>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center gap-3">
+                            <span class="font-bold text-indigo-400">5.</span> <p class="flex-grow">Martina works hard and wants to get a promotion. She is...</p>
+                            <input type="text" id="v5" class="quiz-input rounded px-3 py-1 font-bold text-indigo-700 w-full md:w-32 text-center" placeholder="Word?">
+                        </div>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center gap-3">
+                            <span class="font-bold text-indigo-400">6.</span> <p class="flex-grow">If you have a lot of new, interesting ideas, you are...</p>
+                            <input type="text" id="v6" class="quiz-input rounded px-3 py-1 font-bold text-indigo-700 w-full md:w-32 text-center" placeholder="Word?">
+                        </div>
+                        <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center gap-3">
+                            <span class="font-bold text-indigo-400">7.</span> <p class="flex-grow">Most children like learning about many things. They are...</p>
+                            <input type="text" id="v7" class="quiz-input rounded px-3 py-1 font-bold text-indigo-700 w-full md:w-32 text-center" placeholder="Word?">
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center"><button onclick="checkVocabA()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-8 rounded-lg transition">Check Spelling</button></div>
+                </div>
+
+                <!-- Part B: Categorization Game -->
+                <div class="bg-teal-50 p-8 rounded-2xl border border-teal-200">
+                    <h3 class="font-bold text-teal-900 text-xl mb-4"><i class="fas fa-sitemap mr-2"></i>Part B: Categorize the Skills</h3>
+                    <p class="text-slate-700 mb-6">Click a skill, then click the correct category bucket it belongs to.</p>
+                    
+                    <div id="skills-bank" class="flex flex-wrap gap-2 justify-center mb-8 bg-white p-4 rounded-xl border border-teal-100 shadow-sm">
+                        <span class="skill-pill bg-slate-100 px-4 py-2 rounded-full font-bold border border-slate-300 text-slate-700" onclick="selectSkill(this)">Creative</span>
+                        <span class="skill-pill bg-slate-100 px-4 py-2 rounded-full font-bold border border-slate-300 text-slate-700" onclick="selectSkill(this)">Curious</span>
+                        <span class="skill-pill bg-slate-100 px-4 py-2 rounded-full font-bold border border-slate-300 text-slate-700" onclick="selectSkill(this)">Flexible</span>
+                        <span class="skill-pill bg-slate-100 px-4 py-2 rounded-full font-bold border border-slate-300 text-slate-700" onclick="selectSkill(this)">Honest</span>
+                        <span class="skill-pill bg-slate-100 px-4 py-2 rounded-full font-bold border border-slate-300 text-slate-700" onclick="selectSkill(this)">Independent</span>
+                        <span class="skill-pill bg-slate-100 px-4 py-2 rounded-full font-bold border border-slate-300 text-slate-700" onclick="selectSkill(this)">Motivated</span>
+                        <span class="skill-pill bg-slate-100 px-4 py-2 rounded-full font-bold border border-slate-300 text-slate-700" onclick="selectSkill(this)">Organized</span>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white p-4 rounded-xl border-2 border-dashed border-teal-400 text-center bucket-zone flex flex-col" onclick="moveToBucket(this)">
+                            <h4 class="font-black text-teal-800 text-lg">Intrapersonal</h4>
+                            <p class="text-xs text-slate-500 mb-4">(Internal / Personal Characteristics)</p>
+                            <div class="flex flex-col gap-2 mt-auto"></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border-2 border-dashed border-blue-400 text-center bucket-zone flex flex-col" onclick="moveToBucket(this)">
+                            <h4 class="font-black text-blue-800 text-lg">Interpersonal</h4>
+                            <p class="text-xs text-slate-500 mb-4">(How you interact with people)</p>
+                            <div class="flex flex-col gap-2 mt-auto"></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border-2 border-dashed border-purple-400 text-center bucket-zone flex flex-col" onclick="moveToBucket(this)">
+                            <h4 class="font-black text-purple-800 text-lg">Cognitive</h4>
+                            <p class="text-xs text-slate-500 mb-4">(Thinking / Brain Skills)</p>
+                            <div class="flex flex-col gap-2 mt-auto"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- NEW Game 3: Profile & Skill Matcher -->
+                <div class="bg-yellow-50 p-8 rounded-2xl border border-yellow-200 mt-10">
+                    <h3 class="font-bold text-yellow-900 text-xl mb-4"><i class="fas fa-user-friends mr-2"></i>Part C: Job Matchmaker</h3>
+                    <p class="text-slate-700 mb-6">Read the teen profiles below. Based on their current skills, which entry-level job would be the BEST fit for them? Discuss with a partner, then check your answers!</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col">
+                            <p class="font-bold text-indigo-700 mb-2 border-b pb-2"><i class="fas fa-user-circle mr-2"></i>Profile 1: Sarah</p>
+                            <p class="text-sm text-slate-600 mb-4 italic flex-grow">"I am very patient and organized. I help my younger siblings with their homework every day, and I am great at explaining difficult math problems. I am also very dependable."</p>
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Best Entry-Level Job?</p>
+                            <select class="job-match-quiz border border-yellow-300 rounded px-3 py-2 text-indigo-700 font-bold bg-yellow-50 w-full outline-none" data-answer="tutor">
+                                <option value="">-- Select Job --</option>
+                                <option value="barista">Barista</option>
+                                <option value="lifeguard">Lifeguard</option>
+                                <option value="tutor">After-School Tutor</option>
+                                <option value="retail">Retail Cashier</option>
+                            </select>
+                        </div>
+                        
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col">
+                            <p class="font-bold text-green-700 mb-2 border-b pb-2"><i class="fas fa-user-circle mr-2"></i>Profile 2: David</p>
+                            <p class="text-sm text-slate-600 mb-4 italic flex-grow">"I am very motivated and have a lot of energy. I love playing team sports and I have my CPR and First Aid certifications. I can stay focused for long periods of time and I take safety seriously."</p>
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Best Entry-Level Job?</p>
+                            <select class="job-match-quiz border border-yellow-300 rounded px-3 py-2 text-green-700 font-bold bg-yellow-50 w-full outline-none" data-answer="lifeguard">
+                                <option value="">-- Select Job --</option>
+                                <option value="barista">Barista</option>
+                                <option value="lifeguard">Lifeguard</option>
+                                <option value="tutor">After-School Tutor</option>
+                                <option value="retail">Retail Cashier</option>
+                            </select>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col">
+                            <p class="font-bold text-orange-700 mb-2 border-b pb-2"><i class="fas fa-user-circle mr-2"></i>Profile 3: Maria</p>
+                            <p class="text-sm text-slate-600 mb-4 italic flex-grow">"I am very outgoing and I love talking to people. I have excellent communication skills. I am flexible and can handle a fast-paced environment where I have to multitask and remember complicated orders."</p>
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Best Entry-Level Job?</p>
+                            <select class="job-match-quiz border border-yellow-300 rounded px-3 py-2 text-orange-700 font-bold bg-yellow-50 w-full outline-none" data-answer="barista">
+                                <option value="">-- Select Job --</option>
+                                <option value="barista">Barista / Food Service</option>
+                                <option value="lifeguard">Lifeguard</option>
+                                <option value="tutor">After-School Tutor</option>
+                                <option value="carwash">Car Wash Attendant</option>
+                            </select>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col">
+                            <p class="font-bold text-purple-700 mb-2 border-b pb-2"><i class="fas fa-user-circle mr-2"></i>Profile 4: Alex</p>
+                            <p class="text-sm text-slate-600 mb-4 italic flex-grow">"I am highly organized and detail-oriented. I like making sure things are neat and properly arranged. I am good at handling cash and I always double-check my work so I don't make mistakes."</p>
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Best Entry-Level Job?</p>
+                            <select class="job-match-quiz border border-yellow-300 rounded px-3 py-2 text-purple-700 font-bold bg-yellow-50 w-full outline-none" data-answer="retail">
+                                <option value="">-- Select Job --</option>
+                                <option value="barista">Barista</option>
+                                <option value="lifeguard">Lifeguard</option>
+                                <option value="camp">Camp Counselor</option>
+                                <option value="retail">Retail Cashier</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                        <button onclick="checkJobMatch()" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-8 rounded-lg transition shadow-md">Check Matches</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: LISTENING -->
+        <section id="listening" class="tab-content">
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-headphones-alt text-4xl text-indigo-500 mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-bold text-indigo-700">Getting a Job in the 21st Century</h2>
+                        <p class="text-slate-500">Listen carefully and identify the key words.</p>
+                    </div>
+                </div>
+
+                <!-- Pre-Listening -->
+                <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100 mb-8">
+                    <h3 class="font-bold text-orange-800 mb-2">A. Before you Listen</h3>
+                    <p class="text-slate-700">Read the title above. Discuss with your partner: What do you think the main idea of the talk will be?</p>
+                </div>
+
+                <!-- Audio Element -->
+                <div class="bg-slate-800 p-6 rounded-2xl mb-8 flex flex-col items-center shadow-lg">
+                    <i class="fas fa-podcast text-4xl text-blue-400 mb-4"></i>
+                    <audio controls class="w-full max-w-md">
+                        <source src="https://english4real.com/practice/a/viii_td-3rd-09-01-1.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <p class="text-slate-400 text-xs mt-3 text-center">Teacher will play Audio Track 7.05</p>
+                </div>
+
+                <!-- Listening Quiz -->
+                <div class="bg-blue-50 p-8 rounded-2xl border border-blue-200">
+                    <h3 class="font-bold text-blue-900 text-xl mb-4">B. Identify Key Words</h3>
+                    <p class="mb-6 text-slate-700 bg-white p-3 rounded border border-blue-100 inline-block text-sm font-bold"><i class="fas fa-info-circle mr-2 text-blue-500"></i>Choose ALL the correct answers for each question. There may be more than one!</p>
+                    
+                    <form id="listening-form" class="space-y-6">
+                        <!-- Q1 -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                            <p class="font-bold text-slate-800 mb-3">1. In the past, employers usually focused on...</p>
+                            <div class="grid grid-cols-2 gap-2 text-sm text-slate-600">
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq1" value="a" class="w-4 h-4 text-indigo-600"><span>a. a high school diploma</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq1" value="b" class="w-4 h-4 text-indigo-600"><span>b. a college degree</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq1" value="c" class="w-4 h-4 text-indigo-600"><span>c. personality</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq1" value="d" class="w-4 h-4 text-indigo-600"><span>d. work experience</span></label>
+                            </div>
+                        </div>
+                        <!-- Q2 -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                            <p class="font-bold text-slate-800 mb-3">2. Someone who is..., ..., and ... could get a better job than someone with a degree.</p>
+                            <div class="grid grid-cols-2 gap-2 text-sm text-slate-600">
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq2" value="a" class="w-4 h-4 text-indigo-600"><span>a. organized</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq2" value="b" class="w-4 h-4 text-indigo-600"><span>b. creative</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq2" value="c" class="w-4 h-4 text-indigo-600"><span>c. interesting</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq2" value="d" class="w-4 h-4 text-indigo-600"><span>d. motivated</span></label>
+                            </div>
+                        </div>
+                        <!-- Q3 -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                            <p class="font-bold text-slate-800 mb-3">3. In the example, James got the job because he was..., ..., and ...</p>
+                            <div class="grid grid-cols-2 gap-2 text-sm text-slate-600">
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq3" value="a" class="w-4 h-4 text-indigo-600"><span>a. friendly</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq3" value="b" class="w-4 h-4 text-indigo-600"><span>b. flexible</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq3" value="c" class="w-4 h-4 text-indigo-600"><span>c. curious</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq3" value="d" class="w-4 h-4 text-indigo-600"><span>d. motivated</span></label>
+                            </div>
+                        </div>
+                        <!-- Q4 -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                            <p class="font-bold text-slate-800 mb-3">4. The speaker says that it’s best to have... and ...</p>
+                            <div class="grid grid-cols-2 gap-2 text-sm text-slate-600">
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq4" value="a" class="w-4 h-4 text-indigo-600"><span>a. a college degree</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq4" value="b" class="w-4 h-4 text-indigo-600"><span>b. excellent skills</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq4" value="c" class="w-4 h-4 text-indigo-600"><span>c. good contacts</span></label>
+                                <label class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-slate-50 rounded"><input type="checkbox" name="lq4" value="d" class="w-4 h-4 text-indigo-600"><span>d. great qualifications</span></label>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 mt-6">
+                            <button type="button" onclick="checkListening()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-md transition">Check Answers</button>
+                            <span id="listening-feedback" class="font-bold text-lg hidden"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: INTERVIEW PREP (GAMES) -->
+        <section id="prep" class="tab-content">
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-indigo-700 mb-2">Interview Training Simulator 🎮</h2>
+                    <p class="text-lg text-slate-600">Before we write our own answers, let's practice what makes a *good* interview answer.</p>
+                </div>
+
+                <!-- Game 1: Hire or Fire -->
+                <div class="bg-slate-800 p-8 rounded-2xl shadow-xl text-white mb-10">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-yellow-400"><i class="fas fa-user-tie mr-2"></i>Hire or Fire?</h3>
+                        <span class="bg-slate-700 px-4 py-1 rounded-full text-sm font-bold">Score: <span id="hf-score" class="text-green-400">0</span>/6</span>
+                    </div>
+                    <p class="text-slate-300 mb-6 text-sm">Read the applicant's answer. Is it professional and detailed, or is it terrible? Click HIRE or FIRE.</p>
+                    
+                    <div id="hf-game-area" class="bg-white text-slate-800 p-6 rounded-xl text-center min-h-[150px] flex flex-col justify-center">
+                        <p id="hf-quote" class="text-xl italic font-semibold mb-6">"Loading applicant..."</p>
+                        <div class="flex justify-center gap-4">
+                            <button onclick="handleHF('hire')" class="hire-btn border-2 border-slate-300 text-slate-500 font-bold py-2 px-8 rounded-lg transition text-lg"><i class="fas fa-check-circle mr-2"></i>HIRE</button>
+                            <button onclick="handleHF('fire')" class="fire-btn border-2 border-slate-300 text-slate-500 font-bold py-2 px-8 rounded-lg transition text-lg"><i class="fas fa-times-circle mr-2"></i>FIRE</button>
+                        </div>
+                    </div>
+                    <div id="hf-feedback" class="text-center mt-4 font-bold text-lg hidden"></div>
+                </div>
+
+                <!-- Game 2: The Perfect Answer Scramble -->
+                <div class="bg-indigo-50 p-8 rounded-2xl border border-indigo-200">
+                    <h3 class="text-2xl font-bold text-indigo-900 mb-2"><i class="fas fa-puzzle-piece mr-2"></i>Build the Perfect Answer</h3>
+                    <p class="text-slate-700 mb-6">A good interview answer has 3 parts: <span class="font-bold text-blue-600">1. Current Status</span>, <span class="font-bold text-purple-600">2. Past Experience</span>, and <span class="font-bold text-green-600">3. Personality/Goal</span>. Read the pieces and put them in the correct 1-2-3 order.</p>
+                    
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <p class="font-bold text-slate-500 mb-4 uppercase text-xs tracking-widest">Question: "Tell me about yourself."</p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg flex items-center gap-3">
+                                <select class="scramble-select border border-slate-300 rounded p-1 outline-none font-bold text-indigo-600"><option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                                <span class="text-sm">"I haven't worked in a real office yet, but I have already organized three big school events."</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg flex items-center gap-3">
+                                <select class="scramble-select border border-slate-300 rounded p-1 outline-none font-bold text-indigo-600"><option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                                <span class="text-sm">"I am a very organized and motivated person, and I want to learn more about management."</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg flex items-center gap-3">
+                                <select class="scramble-select border border-slate-300 rounded p-1 outline-none font-bold text-indigo-600"><option value="">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+                                <span class="text-sm">"I am currently a senior in high school, and I am studying business and technology."</span>
+                            </div>
+                        </div>
+                        <button onclick="checkScramble()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg transition">Check Order</button>
+                        <span id="scramble-feedback" class="ml-4 font-bold text-sm hidden"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: WRITE & SPEAK -->
+        <section id="writing" class="tab-content">
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-indigo-700 mb-2">The Personal Statement ✍️</h2>
+                    <p class="text-lg text-slate-600">Time to write your own professional introduction.</p>
+                </div>
+
+                <!-- Part A: Analyze -->
+                <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100 mb-10">
+                    <h3 class="font-bold text-orange-900 text-xl mb-4">A. Analyze a Model</h3>
+                    <div class="bg-white p-5 rounded-xl border-l-4 border-orange-400 shadow-sm mb-6 text-slate-700 italic">
+                        "I am an English teacher, and I have taught at a language school in Sao Paulo for five years. I have a degree in education from the University of Virginia, but I’m Brazilian, so I know that it’s very difficult to learn English! I’m very patient, and I’m good at communicating with my students. I enjoy working with my students and my colleagues. I’m very motivated, and I have just taken some extra courses in classroom management and teaching techniques. I think one of my best qualities is curiosity because teachers should always want to learn new things."
+                    </div>
+                    
+                    <p class="font-bold text-slate-700 mb-3">True or False?</p>
+                    <div class="grid md:grid-cols-2 gap-3 text-sm text-slate-600">
+                        <div class="flex items-center gap-2"><select class="tf-quiz border rounded p-1"><option>-</option><option>T</option><option>F</option></select> 1. It has info about family and pets.</div>
+                        <div class="flex items-center gap-2"><select class="tf-quiz border rounded p-1"><option>-</option><option>T</option><option>F</option></select> 4. It has info about the writer's personality.</div>
+                        <div class="flex items-center gap-2"><select class="tf-quiz border rounded p-1"><option>-</option><option>T</option><option>F</option></select> 2. It gives info about education/work experience.</div>
+                        <div class="flex items-center gap-2"><select class="tf-quiz border rounded p-1"><option>-</option><option>T</option><option>F</option></select> 5. It is a general introduction to the writer.</div>
+                        <div class="flex items-center gap-2"><select class="tf-quiz border rounded p-1"><option>-</option><option>T</option><option>F</option></select> 3. It has a complete list of all degrees.</div>
+                    </div>
+                    <button onclick="checkTF()" class="mt-4 bg-orange-500 text-white px-4 py-1 rounded text-sm font-bold">Check T/F</button>
+                    <span id="tf-feedback" class="text-sm font-bold ml-2"></span>
+                </div>
+
+                <!-- Part B: Write Your Own -->
+                <div class="bg-blue-50 p-8 rounded-2xl border border-blue-200 mb-10">
+                    <h3 class="font-bold text-blue-900 text-2xl mb-4"><i class="fas fa-edit mr-2"></i>B. Write Your Answers</h3>
+                    <p class="text-slate-700 mb-6">Use your notebook to draft your answers to these two classic interview questions. Use the templates if you need help!</p>
+                    
+                    <div class="space-y-6">
+                        <!-- Q1 -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 class="font-black text-lg text-slate-800 mb-2">Question 1: "Tell me about yourself."</h4>
+                            <p class="text-sm text-slate-500 mb-3">Include who you are now, what experience you have, and your personality.</p>
+                            <div class="bg-blue-50 p-4 rounded-lg font-mono text-sm text-blue-800 border-l-4 border-blue-400">
+                                <span class="block mb-1"><b>Template Help:</b></span>
+                                "I am a [high school student / university student]. I haven't worked in a company yet, but I have [played on a sports team / volunteered / studied X]. I am very [adjective] and [adjective]."
+                            </div>
+                        </div>
+                        <!-- Q2 -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h4 class="font-black text-lg text-slate-800 mb-2">Question 2: "Why should we hire you?"</h4>
+                            <p class="text-sm text-slate-500 mb-3">Focus on your specific skills and how they help the company. You must sell yourself as the solution to their needs!</p>
+                            <div class="grid md:grid-cols-2 gap-4 mt-2">
+                                <div class="bg-blue-50 p-4 rounded-lg font-mono text-sm text-blue-800 border-l-4 border-blue-400">
+                                    <span class="block mb-1"><b>Template 1: For Entry Level/Students</b></span>
+                                    "You should hire me because I am a highly motivated and fast learner. While I am building my professional experience, I have a strong foundation in [subject/club/sport] and I have successfully [mention an achievement]. I have excellent [skill] skills."
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg font-mono text-sm text-blue-800 border-l-4 border-blue-400">
+                                    <span class="block mb-1"><b>Template 2: Focus on Personality</b></span>
+                                    "You should hire me because my skills match the job requirements perfectly. I have already developed my [soft skill, e.g. communication] and [soft skill, e.g. teamwork] through [mention school/volunteer experience]. I am very [adjective] and [adjective]."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part C: Peer Review & Group Practice -->
+                <div class="bg-gradient-to-r from-purple-100 to-indigo-100 p-8 rounded-2xl border border-purple-200 text-center mb-10">
+                    <i class="fas fa-comments text-5xl text-purple-500 mb-4"></i>
+                    <h3 class="font-bold text-purple-900 text-2xl mb-2">C. The Mock Interview</h3>
+                    <p class="text-slate-700 mb-6 max-w-2xl mx-auto">Work in pairs. One person is the interviewer, the other is the applicant. Read your answers aloud and practice sounding confident!</p>
+                    <div class="flex flex-col md:flex-row gap-4 justify-center max-w-3xl mx-auto text-left mb-6">
+                        <div class="bg-white p-4 rounded-xl shadow-sm flex-1">
+                            <h4 class="font-bold text-indigo-700 border-b pb-2 mb-2"><i class="fas fa-user-tie mr-2"></i>The Interviewer's Job</h4>
+                            <ul class="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                                <li>Ask the questions clearly.</li>
+                                <li><b>Grammar Check:</b> Did they use the Present Perfect correctly? (Have + V3)</li>
+                                <li><b>Content Check:</b> Did they actually answer the question?</li>
+                                <li>Ask <b>one</b> follow-up question. (e.g., "Oh, you volunteered? Where did you volunteer?")</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm flex-1">
+                            <h4 class="font-bold text-indigo-700 border-b pb-2 mb-2"><i class="fas fa-briefcase mr-2"></i>The Applicant's Job</h4>
+                            <ul class="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                                <li>Speak loudly and confidently.</li>
+                                <li>Look the interviewer in the eye.</li>
+                                <li>Don't just read your paper—try to speak naturally!</li>
+                                <li>Be ready to answer a surprise follow-up question using the Simple Past.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: Conversation Prompts for Group Practice -->
+                <div class="bg-teal-50 p-8 rounded-2xl border border-teal-200">
+                    <h3 class="font-bold text-teal-900 text-2xl mb-4 text-center"><i class="fas fa-users mr-2"></i>Group Speaking Practice</h3>
+                    <p class="text-slate-700 mb-6 text-center">After your mock interviews, discuss these questions in small groups. Use the Present Perfect when possible!</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-teal-400">
+                            <p class="font-bold text-slate-700 mb-1">1. The Future</p>
+                            <p class="text-slate-600 text-sm">What is one skill you haven't learned <b>yet</b>, but you think is absolutely necessary for your dream job?</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-teal-400">
+                            <p class="font-bold text-slate-700 mb-1">2. Experience</p>
+                            <p class="text-slate-600 text-sm">Have you <b>ever</b> had an interview (for a job, a scholarship, a club, a school)? How did it go?</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-teal-400">
+                            <p class="font-bold text-slate-700 mb-1">3. The Hardest Question</p>
+                            <p class="text-slate-600 text-sm">In your opinion, what is the most difficult question an interviewer can ask you? Why?</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-teal-400">
+                            <p class="font-bold text-slate-700 mb-1">4. Action Taken</p>
+                            <p class="text-slate-600 text-sm">What is one thing you have <b>already</b> done this year to prepare for your future career or education?</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- Tab Navigation ---
+        function openTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            document.getElementById('btn-' + tabName).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- Grammar Gauntlet Game ---
+        const gauntletQs = [
+            { q: "I ______ to Paris in 2018.", options: ["went", "have gone"], a: "went" },
+            { q: "She ______ three books so far this year.", options: ["read", "has read"], a: "has read" },
+            { q: "We ______ dinner two hours ago.", options: ["ate", "have eaten"], a: "ate" },
+            { q: "I ______ never ______ sushi.", options: ["did / eat", "have / eaten"], a: "have / eaten" },
+            { q: "______ you finish the project last night?", options: ["Did", "Have"], a: "Did" },
+            { q: "Shakespeare ______ many famous plays.", options: ["wrote", "has written"], a: "wrote" },
+            { q: "Ouch! I ______ my finger just now!", options: ["cut", "have cut"], a: "have cut" },
+            { q: "My family ______ to Canada in 2012.", options: ["moved", "has moved"], a: "moved" },
+            { q: "I ______ three cups of coffee today.", options: ["drank", "have drunk"], a: "have drunk" },
+            { q: "When ______ the party?", options: ["did you leave", "have you left"], a: "did you leave" },
+            { q: "______ you ever ______ to New York?", options: ["Did / be", "Have / been"], a: "Have / been" },
+            { q: "He ______ his keys yesterday.", options: ["lost", "has lost"], a: "lost" },
+            { q: "I ______ him since we were children.", options: ["knew", "have known"], a: "have known" },
+            { q: "They ______ the house yet.", options: ["didn't clean", "haven't cleaned"], a: "haven't cleaned" },
+            { q: "She ______ just ______ the meeting.", options: ["did / start", "has / started"], a: "has / started" }
+        ];
+        
+        let gRound = 0;
+        let gScore = 0;
+
+        function initGauntlet() {
+            gRound = 0; gScore = 0;
+            document.getElementById('gauntlet-end').classList.add('hidden');
+            document.getElementById('gauntlet-container').classList.remove('hidden');
+            loadGauntletQ();
+        }
+
+        function loadGauntletQ() {
+            if (gRound >= 15) { endGauntlet(); return; }
+            document.getElementById('gauntlet-round').innerText = (gRound + 1) + " / 15";
+            document.getElementById('gauntlet-score').innerText = gScore;
+            document.getElementById('gauntlet-question').innerText = gauntletQs[gRound].q;
+            
+            let optsHtml = "";
+            gauntletQs[gRound].options.forEach(opt => {
+                optsHtml += `<button onclick="checkGauntlet('${opt}')" class="w-full bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 font-bold py-3 px-4 rounded-lg transition text-lg">${opt}</button>`;
+            });
+            document.getElementById('gauntlet-options').innerHTML = optsHtml;
+        }
+
+        function checkGauntlet(ans) {
+            if (ans === gauntletQs[gRound].a) gScore++;
+            gRound++;
+            loadGauntletQ();
+        }
+
+        function endGauntlet() {
+            document.getElementById('gauntlet-container').classList.add('hidden');
+            document.getElementById('gauntlet-end').classList.remove('hidden');
+            document.getElementById('gauntlet-final-score').innerText = gScore;
+        }
+
+        function toggleCorrections() {
+            document.getElementById('correction-answers').classList.toggle('hidden');
+        }
+
+        // --- Vocabulary A: Fill in Blanks ---
+        function checkVocabA() {
+            const answers = { 'v1': 'flexible', 'v2': 'organized', 'v3': 'independent', 'v4': 'honest', 'v5': 'motivated', 'v6': 'creative', 'v7': 'curious' };
+            for (let id in answers) {
+                let el = document.getElementById(id);
+                let val = el.value.toLowerCase().trim();
+                el.classList.remove('correct', 'incorrect');
+                if (val === answers[id]) el.classList.add('correct');
+                else if (val !== "") el.classList.add('incorrect');
+            }
+        }
+
+        // --- Vocabulary B: Sorting Logic ---
+        let selectedSkill = null;
+        function selectSkill(el) {
+            if(selectedSkill) selectedSkill.classList.remove('ring-4', 'ring-teal-400', 'bg-teal-100');
+            selectedSkill = el;
+            selectedSkill.classList.add('ring-4', 'ring-teal-400', 'bg-teal-100');
+        }
+        function moveToBucket(bucketZone) {
+            if(!selectedSkill) return;
+            let targetContainer = bucketZone.querySelector('div');
+            targetContainer.appendChild(selectedSkill);
+            selectedSkill.classList.remove('ring-4', 'ring-teal-400', 'bg-teal-100');
+            selectedSkill.classList.add('w-full', 'mb-1', 'bg-white', 'shadow-sm', 'text-sm'); 
+            selectedSkill = null;
+        }
+
+        // --- NEW Vocabulary C: Job Matcher ---
+        function checkJobMatch() {
+            const selects = document.querySelectorAll('.job-match-quiz');
+            let score = 0;
+            selects.forEach(sel => {
+                sel.classList.remove('bg-green-100', 'text-green-700', 'border-green-400', 'bg-red-100', 'text-red-700', 'border-red-400');
+                if(sel.value === sel.getAttribute('data-answer')) {
+                    sel.classList.add('bg-green-100', 'text-green-700', 'border-green-400');
+                    score++;
+                } else if (sel.value !== "") {
+                    sel.classList.add('bg-red-100', 'text-red-700', 'border-red-400');
+                }
+            });
+        }
+
+        // --- Listening Check ---
+        function checkListening() {
+            // Target answers based on standard employability texts (adjust if needed based on exact audio)
+            const targets = {
+                lq1: ['a', 'b', 'd'], // Past: diploma, degree, experience
+                lq2: ['a', 'b', 'd'], // Better job: organized, creative, motivated
+                lq3: ['a', 'b', 'c'], // James: friendly, flexible, curious
+                lq4: ['b', 'd']       // Best to have: excellent skills, great qualifications
+            };
+            
+            let totalPossible = 11; // total correct checkboxes
+            let score = 0;
+            
+            for(let q in targets) {
+                let checked = Array.from(document.querySelectorAll(`input[name="${q}"]:checked`)).map(el => el.value);
+                targets[q].forEach(t => { if(checked.includes(t)) score++; });
+                // Penalty for wrong guesses to prevent checking all
+                checked.forEach(c => { if(!targets[q].includes(c)) score--; });
+            }
+            
+            if(score < 0) score = 0;
+            
+            let fb = document.getElementById('listening-feedback');
+            fb.style.display = 'inline-block';
+            fb.innerText = `Score: ${score} / ${totalPossible} correct points!`;
+            fb.className = "font-bold text-lg inline-block ml-4 " + (score > 8 ? "text-green-600" : "text-orange-500");
+        }
+
+        // --- Interview Prep: Hire or Fire ---
+        const hfQuestions = [
+            { quote: '"I haven\'t had a real job yet, but I have led my school\'s robotics club for two years, managing a team of 5."', a: 'hire', fb: 'Excellent! Shows leadership even without paid experience.' },
+            { quote: '"I want this job because I need money to buy a new car."', a: 'fire', fb: 'Terrible! Focus on what you can do for the company, not your personal purchases.' },
+            { quote: '"My biggest weakness is that I work too hard and I am a perfectionist."', a: 'fire', fb: 'Cliché! Interviewers know this is a fake weakness. Be honest and show how you improve.' },
+            { quote: '"I have already taken three online courses in digital marketing to prepare for this role."', a: 'hire', fb: 'Great use of Present Perfect and shows motivation to learn independently!' },
+            { quote: '"Yeah, I quit my last job because my boss was a complete idiot."', a: 'fire', fb: 'Never insult a former boss. It makes you look unprofessional and difficult to work with.' },
+            { quote: '"I haven\'t mastered Python yet, but I am currently taking classes and practice every weekend."', a: 'hire', fb: 'Perfect use of "yet". Shows honesty and a proactive attitude.' }
+        ];
+        let hfIndex = 0;
+        let hfScore = 0;
+
+        function loadHF() {
+            if(hfIndex >= hfQuestions.length) {
+                document.getElementById('hf-game-area').innerHTML = `<p class='text-2xl text-yellow-400 font-bold'>Interviews Complete!</p><p class='text-white mt-2'>Final Score: ${hfScore}/6</p>`;
+                return;
+            }
+            document.getElementById('hf-quote').innerText = hfQuestions[hfIndex].quote;
+            document.getElementById('hf-feedback').classList.add('hidden');
+        }
+
+        function handleHF(choice) {
+            let fbEl = document.getElementById('hf-feedback');
+            fbEl.classList.remove('hidden', 'text-green-400', 'text-red-400');
+            
+            if (choice === hfQuestions[hfIndex].a) {
+                hfScore++;
+                document.getElementById('hf-score').innerText = hfScore;
+                fbEl.classList.add('text-green-400');
+                fbEl.innerHTML = `<i class="fas fa-check mr-2"></i>Correct! ${hfQuestions[hfIndex].fb}`;
+            } else {
+                fbEl.classList.add('text-red-400');
+                fbEl.innerHTML = `<i class="fas fa-times mr-2"></i>Oops! ${hfQuestions[hfIndex].fb}`;
+            }
+            
+            hfIndex++;
+            setTimeout(loadHF, 3000); // Wait 3 seconds to read feedback
+        }
+
+        // --- Interview Scramble ---
+        function checkScramble() {
+            const selects = document.querySelectorAll('.scramble-select');
+            let vals = Array.from(selects).map(s => s.value);
+            let fb = document.getElementById('scramble-feedback');
+            fb.style.display = 'inline';
+            
+            if(vals[0] === "2" && vals[1] === "3" && vals[2] === "1") {
+                fb.className = "ml-4 font-bold text-sm text-green-600";
+                fb.innerText = "Perfect! 1. Current -> 2. Past -> 3. Personality";
+            } else {
+                fb.className = "ml-4 font-bold text-sm text-red-500";
+                fb.innerText = "Not quite. (Hint: The high school sentence is #1)";
+            }
+        }
+
+        // --- Writing T/F ---
+        function checkTF() {
+            const selects = document.querySelectorAll('.tf-quiz');
+            let vals = Array.from(selects).map(s => s.value);
+            const answers = ["F", "T", "F", "T", "T"]; // Order based on DOM layout: 1, 4, 2, 5, 3
+            
+            let correct = 0;
+            selects.forEach((s, i) => {
+                s.classList.remove('bg-green-100', 'bg-red-100');
+                if(s.value === answers[i]) { correct++; s.classList.add('bg-green-100'); }
+                else if (s.value !== "-") { s.classList.add('bg-red-100'); }
+            });
+            
+            let fb = document.getElementById('tf-feedback');
+            fb.innerText = `${correct}/5 Correct`;
+            fb.className = "text-sm font-bold ml-2 " + (correct === 5 ? "text-green-600" : "text-orange-500");
+        }
+
+        window.onload = function() {
+            initGauntlet();
+            loadHF();
+        };
+    </script>
+</body>
+</html>
